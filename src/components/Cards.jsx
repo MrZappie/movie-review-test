@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 
-function Cards({ key, id, title, description, averageRating, genre, year, poster }) {
+function Cards({ id, title, description, averageRating, genre, year, poster }) {
   const navigate = useNavigate();
 
   const getRatingColor = (rating) => {
@@ -20,7 +20,6 @@ function Cards({ key, id, title, description, averageRating, genre, year, poster
   return (
     <Card 
       className="movie-card h-100 shadow-sm border-0 position-relative overflow-hidden" 
-      key={key}
       style={{
         cursor: "pointer",
         minHeight: "300px",
@@ -29,12 +28,6 @@ function Cards({ key, id, title, description, averageRating, genre, year, poster
       }}
       onClick={handleCardClick}
     >
-<<<<<<< HEAD
-      <Card.Body className="p-4">
-        <div className="d-flex justify-content-between align-items-start mb-3">
-          <div className="flex-grow-1" style={{ paddingRight: "60px" }}>
-            <Card.Title className="fw-bold text-dark mb-2" style={{ fontSize: "1.25rem" }}>
-=======
       {/* Poster Background */}
       <div 
         className="position-absolute w-100 h-100"
@@ -89,7 +82,6 @@ function Cards({ key, id, title, description, averageRating, genre, year, poster
         <div className="d-flex justify-content-between align-items-start mb-2">
           <div className="flex-grow-1">
             <Card.Title className="fw-bold text-white mb-2" style={{ fontSize: "1.1rem", textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}>
->>>>>>> 4bc927c (Updated movie cards with smaller size, rounded corners, and poster backgrounds)
               {title}
             </Card.Title>
             <div className="d-flex gap-2 mb-2">
