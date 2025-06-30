@@ -40,8 +40,8 @@ function SearchPage() {
     movie.genre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Always show up to 10 movies, even if some have no ratings
-  const top10Filtered = filteredMovies.slice(0, 10);
+  // Show all filtered movies
+  const allFiltered = filteredMovies;
 
   return (
     <div className="min-vh-100" style={{ background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" }}>
@@ -100,7 +100,7 @@ function SearchPage() {
             <i className="bi bi-search display-1 mb-3"></i>
             <h3>Loading movies...</h3>
           </div>
-        ) : top10Filtered.length === 0 ? (
+        ) : allFiltered.length === 0 ? (
           <div className="text-center text-white py-5">
             <i className="bi bi-search display-1 mb-3"></i>
             <h3>No movies found</h3>
@@ -108,7 +108,7 @@ function SearchPage() {
           </div>
         ) : (
           <Row className="g-4">
-            {top10Filtered.map((movie) => (
+            {allFiltered.map((movie) => (
               <Col key={movie.id} xs={12} sm={6} lg={4} xl={3}>
                 <Cards
                   id={movie.id}
