@@ -30,10 +30,18 @@ function Home() {
     fetchAndCalculate();
   }, []);
 
-  // Get top 10 movies sorted by calculated average rating
+  // Sort: movies with ratings first, then by rating desc, then by title
   const topMovies = movieAverages
-    .filter(m => m.averageRating !== null)
-    .sort((a, b) => b.averageRating - a.averageRating)
+    .slice() // copy
+    .sort((a, b) => {
+      if (a.averageRating === null && b.averageRating !== null) return 1;
+      if (a.averageRating !== null && b.averageRating === null) return -1;
+      if (a.averageRating !== null && b.averageRating !== null) {
+        if (b.averageRating !== a.averageRating) return b.averageRating - a.averageRating;
+      }
+      // fallback: sort by title
+      return a.title.localeCompare(b.title);
+    })
     .slice(0, 10);
 
   return (
@@ -56,7 +64,7 @@ function Home() {
         {loading ? (
           <div className="text-center text-light py-5">Loading top movies...</div>
         ) : topMovies.length === 0 ? (
-          <div className="text-center text-light py-5">No movies with reviews yet.</div>
+          <div className="text-center text-light py-5">No movies found.</div>
         ) : (
           <Row className="g-4">
             {topMovies.map((movie, index) => (
