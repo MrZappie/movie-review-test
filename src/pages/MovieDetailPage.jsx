@@ -110,10 +110,10 @@ function MovieDetailPage() {
             <div className="text-white text-center">
               <h1 className="display-4 fw-bold mb-3">{movie.title}</h1>
               <div className="d-flex justify-content-center gap-3 mb-3">
-                <Badge bg="outline-light" className="border border-light text-white">
+                <Badge bg="outline-light" className=" text-white">
                   {movie.genre}
                 </Badge>
-                <Badge bg="outline-light" className="border border-light text-white">
+                <Badge bg="outline-light" className=" text-white">
                   {movie.year}
                 </Badge>
                 <div className="d-flex align-items-center">
