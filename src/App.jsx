@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 import NavBar from "./components/NavBar";
-import AddPage from "./pages/AddPage";
 import Home from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
 import EditPage from "./pages/EditPage";
@@ -22,7 +21,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/add" element={<AddPage />} />
             <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
