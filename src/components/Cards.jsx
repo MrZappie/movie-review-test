@@ -21,12 +21,6 @@ function Cards({ id, title, description, averageRating, genre, year, poster }) {
       }}
       onClick={handleCardClick}
     >
-<<<<<<< HEAD
-      <Card.Body className="p-4">
-        <div className="d-flex justify-content-between align-items-start mb-3">
-          <div className="flex-grow-1" style={{ paddingRight: "60px" }}>
-            <Card.Title className="fw-bold text-dark mb-2" style={{ fontSize: "1.25rem" }}>
-=======
       {/* Poster Background */}
       <div
         className="position-absolute w-100 h-100"
@@ -86,8 +80,13 @@ function Cards({ id, title, description, averageRating, genre, year, poster }) {
       >
         <div className="d-flex justify-content-between align-items-start mb-2">
           <div className="flex-grow-1">
-            <Card.Title className="fw-bold text-white mb-2" style={{ fontSize: "1.1rem", textShadow: "2px 2px 4px rgba(0,0,0,0.7)" }}>
->>>>>>> 4bc927c (Updated movie cards with smaller size, rounded corners, and poster backgrounds)
+            <Card.Title
+              className="fw-bold text-white mb-2"
+              style={{
+                fontSize: "1.1rem",
+                textShadow: "2px 2px 4px rgba(0,0,0,0.7)",
+              }}
+            >
               {title}
             </Card.Title>
             <div className="d-flex gap-2 mb-2">
@@ -135,7 +134,6 @@ function Cards({ id, title, description, averageRating, genre, year, poster }) {
           </div>
         </div>
 
-        {/* Description with text clamp */}
         <Card.Text
           className="text-white mb-2"
           style={{
