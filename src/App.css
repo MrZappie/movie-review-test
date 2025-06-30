@@ -1,0 +1,119 @@
+/* Custom styles for Movie Review App */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom card styles */
+.movie-card {
+  cursor: pointer;
+}
+
+/* Custom button styles */
+.btn-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  color: white;
+}
+
+/* Custom form styles */
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Custom badge styles */
+.badge-outline {
+  background: transparent;
+  border: 1px solid;
+}
+
+/* Custom navbar styles */
+.navbar-brand {
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+/* Custom alert styles */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+/* Custom input group styles */
+.input-group-text {
+  border: none;
+  background: white;
+}
+
+/* Custom rating display */
+.rating-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a6fd8;
+}
+
+/* Animation for page transitions */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom focus styles for accessibility */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
