@@ -26,7 +26,7 @@ export const moviesData = [
     genre: "Action",
     year: 2008,
     averageRating: 9.0,
-    poster: "https://m.media-amazon.com/images/I/51EbJjlLgPL._AC_.jpg",
+    poster: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQkUywIUXDjHSQJIaNHYVs08osgBpF5Ot-xmB_omyEZeeRP9Xug",
     reviews: []
   },
   {
@@ -56,7 +56,7 @@ export const moviesData = [
     genre: "Sci-Fi",
     year: 2010,
     averageRating: 8.8,
-    poster: "https://m.media-amazon.com/images/I/5101bEGc-LL._AC_.jpg",
+    poster: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQovCe0H45fWwAtV31ajOdXRPTxSsMQgPIQ3lcZX_mAW0jXV3kH",
     reviews: []
   },
   {
@@ -76,7 +76,7 @@ export const moviesData = [
     genre: "Crime",
     year: 1990,
     averageRating: 8.7,
-    poster: "https://m.media-amazon.com/images/I/51x0B8R8bXL._AC_.jpg",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ23JwU8vZ4uybP_2-2yETpN4o4Jis0Ew_QZK8YOeB3sEpHRKN",
     reviews: []
   },
   {
@@ -106,7 +106,7 @@ export const moviesData = [
     genre: "Crime",
     year: 2006,
     averageRating: 8.5,
-    poster: "https://m.media-amazon.com/images/I/51Z0nLAfLmL._AC_.jpg",
+    poster: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQK9o28cy8virt0MR8oIEKlIyIFHK3MYDeJupppMEOzAOQhLHwf",
     reviews: []
   },
   {
@@ -116,7 +116,7 @@ export const moviesData = [
     genre: "Drama",
     year: 1999,
     averageRating: 8.6,
-    poster: "https://m.media-amazon.com/images/I/51A2Hja3p6L._AC_.jpg",
+    poster: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ7suoPJIdjEqE0v7MwETMo2lnOlxy1QDP2LrlRQ8kmv7WNABMd",
     reviews: []
   },
   {
@@ -126,7 +126,7 @@ export const moviesData = [
     genre: "Drama",
     year: 1994,
     averageRating: 8.8,
-    poster: "https://m.media-amazon.com/images/I/61+z43ZdnXL._AC_SY679_.jpg",
+    poster: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcScf5su68o8oOp0D89ESlb3_8RW2ge3ZWIPFv_OBVSObb680o3H",
     reviews: []
   },
   {
@@ -136,7 +136,7 @@ export const moviesData = [
     genre: "Animation",
     year: 1994,
     averageRating: 8.5,
-    poster: "https://m.media-amazon.com/images/I/81WcnNQ-TBL._AC_SY679_.jpg",
+    poster: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRu6K8z_pBKeeeG_ew9Xlk-JC0e4FEoE4Qx4nEpxP9dg88BuVze",
     reviews: []
   },
   {
@@ -146,7 +146,7 @@ export const moviesData = [
     genre: "Action",
     year: 2000,
     averageRating: 8.5,
-    poster: "https://m.media-amazon.com/images/I/51A9C44jUgL._AC_.jpg",
+    poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFabKsWv9ru_kpMttjPf2493GGI7L3LpW3XjgPTE9FyHdNDIwV",
     reviews: []
   }
 ];
