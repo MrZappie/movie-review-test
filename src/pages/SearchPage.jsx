@@ -83,8 +83,7 @@ function SearchPage() {
                   id={movie.id}
                   title={movie.title}
                   description={movie.description}
-                  createdAt={movie.createdAt}
-                  rating={movie.rating}
+                  averageRating={movie.averageRating}
                   genre={movie.genre}
                   year={movie.year}
                 />

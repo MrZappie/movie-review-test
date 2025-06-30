@@ -6,9 +6,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function Home() {
-  // Get top 10 movies sorted by rating
+  // Get top 10 movies sorted by average rating
   const topMovies = moviesData
-    .sort((a, b) => b.rating - a.rating)
+    .sort((a, b) => b.averageRating - a.averageRating)
     .slice(0, 10);
 
   return (
@@ -57,8 +57,7 @@ function Home() {
                   id={movie.id}
                   title={movie.title}
                   description={movie.description}
-                  createdAt={movie.createdAt}
-                  rating={movie.rating}
+                  averageRating={movie.averageRating}
                   genre={movie.genre}
                   year={movie.year}
                 />

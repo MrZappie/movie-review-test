@@ -1,10 +1,9 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from "react-router-dom";
 
-function Cards({ key, id, title, description, rating, createdAt, genre, year }) {
+function Cards({ key, id, title, description, averageRating, genre, year }) {
   const navigate = useNavigate();
 
   const getRatingColor = (rating) => {
@@ -15,7 +14,7 @@ function Cards({ key, id, title, description, rating, createdAt, genre, year }) 
   };
 
   const handleCardClick = () => {
-    navigate(`/edit/${id}`);
+    navigate(`/movie/${id}`);
   };
 
   return (
@@ -53,16 +52,16 @@ function Cards({ key, id, title, description, rating, createdAt, genre, year }) 
                 className="fw-bold me-1" 
                 style={{ 
                   fontSize: "1.5rem",
-                  color: `var(--bs-${getRatingColor(rating)})`
+                  color: `var(--bs-${getRatingColor(averageRating)})`
                 }}
               >
-                {rating}
+                {averageRating}
               </span>
               <i
                 className="bi bi-star-fill"
                 style={{ 
                   fontSize: "1.25rem",
-                  color: `var(--bs-${getRatingColor(rating)})`
+                  color: `var(--bs-${getRatingColor(averageRating)})`
                 }}
               ></i>
             </div>
@@ -74,8 +73,8 @@ function Cards({ key, id, title, description, rating, createdAt, genre, year }) 
         </Card.Text>
         
         <footer className="text-muted small">
-          <i className="bi bi-clock me-1"></i>
-          {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+          <i className="bi bi-eye me-1"></i>
+          Click to view details and reviews
         </footer>
       </Card.Body>
     </Card>
