@@ -26,8 +26,9 @@ function MovieDetailPage() {
     const foundMovie = moviesData.find(m => m.id === parseInt(id));
     if (foundMovie) {
       setMovie(foundMovie);
-      // Check if current user has already reviewed this movie
-      const existingReview = foundMovie.reviews.find(r => r.userId === currentUser?.id);
+      const existingReview = foundMovie.reviews.find(
+        r => r.userId === currentUser?.id
+      );
       setUserReview(existingReview);
     }
   }, [id, currentUser]);
@@ -42,7 +43,6 @@ function MovieDetailPage() {
   const handleAddReview = (e) => {
     e.preventDefault();
     if (newReview.rating > 0 && newReview.comment.trim()) {
-      // Simulate adding review
       const review = {
         id: Date.now(),
         userId: currentUser.id,
@@ -51,8 +51,7 @@ function MovieDetailPage() {
         comment: newReview.comment,
         createdAt: new Date().toISOString()
       };
-      
-      // Update movie reviews (in a real app, this would be an API call)
+
       const updatedMovie = {
         ...movie,
         reviews: [...movie.reviews, review]
@@ -62,7 +61,7 @@ function MovieDetailPage() {
       setShowAddReview(false);
       setNewReview({ rating: 0, comment: "" });
       setSuccessAlert(true);
-      
+
       setTimeout(() => setSuccessAlert(false), 3000);
     }
   };
@@ -73,8 +72,8 @@ function MovieDetailPage() {
 
   if (!movie) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center" 
-           style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center"
+        style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
         <div className="text-center text-white">
           <i className="bi bi-exclamation-triangle display-1 mb-3"></i>
           <h3>Movie not found</h3>
@@ -88,8 +87,8 @@ function MovieDetailPage() {
 
   if (!currentUser) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center" 
-           style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center"
+        style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
         <div className="text-center text-white">
           <i className="bi bi-lock display-1 mb-3"></i>
           <h3>Please log in to view movie details</h3>
@@ -104,31 +103,38 @@ function MovieDetailPage() {
   return (
     <div className="min-vh-100" style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
       <Container className="py-5">
-        {/* Movie Header */}
         <Row className="mb-5">
           <Col>
             <div className="text-white text-center">
               <h1 className="display-4 fw-bold mb-3">{movie.title}</h1>
+
               <div className="d-flex justify-content-center gap-3 mb-3">
-                <Badge bg="outline-light" className=" text-white">
+                <Badge
+                  bg="outline-light"
+                  className="text-white d-inline-flex align-items-center justify-content-center px-2 py-1 fs-5"
+                >
                   {movie.genre}
                 </Badge>
-                <Badge bg="outline-light" className=" text-white">
+
+                <Badge
+                  bg="outline-light"
+                  className="text-white d-inline-flex align-items-center justify-content-center px-2 py-1 fs-5"
+                >
                   {movie.year}
                 </Badge>
-                <div className="d-flex align-items-center">
-                  <span className="me-2 fw-bold text-warning" style={{ fontSize: "1.5rem" }}>
-                    {movie.averageRating}
-                  </span>
-                  <i className="bi bi-star-fill text-warning" style={{ fontSize: "1.5rem" }}></i>
-                </div>
+              </div>
+
+              <div className="d-flex justify-content-center align-items-center mb-3">
+                <span className="me-2 fw-bold text-warning" style={{ fontSize: "1.5rem" }}>
+                  {movie.averageRating}
+                </span>
+                <i className="bi bi-star-fill text-warning" style={{ fontSize: "1.5rem" }}></i>
               </div>
             </div>
           </Col>
         </Row>
 
         <Row className="g-4">
-          {/* Movie Description */}
           <Col lg={4}>
             <Card className="h-100 shadow border-0">
               <Card.Body className="p-4">
@@ -158,7 +164,6 @@ function MovieDetailPage() {
             </Card>
           </Col>
 
-          {/* Reviews Section */}
           <Col lg={8}>
             <Card className="shadow border-0">
               <Card.Body className="p-4">
@@ -168,10 +173,10 @@ function MovieDetailPage() {
                     User Reviews ({movie.reviews.length})
                   </h3>
                   {!userReview && (
-                    <Button 
+                    <Button
                       variant="primary"
                       onClick={() => setShowAddReview(true)}
-                      style={{ 
+                      style={{
                         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                         border: "none"
                       }}
@@ -189,7 +194,6 @@ function MovieDetailPage() {
                   </Alert>
                 )}
 
-                {/* Add Review Form */}
                 {showAddReview && (
                   <Card className="mb-4 border-primary">
                     <Card.Body>
@@ -205,7 +209,7 @@ function MovieDetailPage() {
                                 max="10"
                                 step="0.1"
                                 value={newReview.rating}
-                                onChange={(e) => setNewReview({...newReview, rating: e.target.value})}
+                                onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
                                 required
                               />
                             </Form.Group>
@@ -226,7 +230,7 @@ function MovieDetailPage() {
                             as="textarea"
                             rows={3}
                             value={newReview.comment}
-                            onChange={(e) => setNewReview({...newReview, comment: e.target.value})}
+                            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                             placeholder="Share your thoughts about this movie..."
                             required
                           />
@@ -236,8 +240,8 @@ function MovieDetailPage() {
                             <i className="bi bi-check-circle me-2"></i>
                             Submit Review
                           </Button>
-                          <Button 
-                            variant="outline-secondary" 
+                          <Button
+                            variant="outline-secondary"
                             onClick={() => {
                               setShowAddReview(false);
                               setNewReview({ rating: 0, comment: "" });
@@ -251,7 +255,6 @@ function MovieDetailPage() {
                   </Card>
                 )}
 
-                {/* User's Review */}
                 {userReview && (
                   <Card className="mb-4 border-primary">
                     <Card.Body>
@@ -263,18 +266,18 @@ function MovieDetailPage() {
                           </small>
                         </div>
                         <div className="d-flex align-items-center">
-                          <span 
-                            className="fw-bold me-2" 
-                            style={{ 
+                          <span
+                            className="fw-bold me-2"
+                            style={{
                               color: `var(--bs-${getRatingColor(userReview.rating)})`,
                               fontSize: "1.2rem"
                             }}
                           >
                             {userReview.rating}
                           </span>
-                          <i 
+                          <i
                             className="bi bi-star-fill"
-                            style={{ 
+                            style={{
                               color: `var(--bs-${getRatingColor(userReview.rating)})`,
                               fontSize: "1.2rem"
                             }}
@@ -282,8 +285,8 @@ function MovieDetailPage() {
                         </div>
                       </div>
                       <p className="mb-3">{userReview.comment}</p>
-                      <Button 
-                        variant="outline-primary" 
+                      <Button
+                        variant="outline-primary"
                         size="sm"
                         onClick={handleEditReview}
                       >
@@ -294,7 +297,6 @@ function MovieDetailPage() {
                   </Card>
                 )}
 
-                {/* Other Reviews */}
                 {movie.reviews
                   .filter(review => review.userId !== currentUser?.id)
                   .map((review) => (
@@ -308,18 +310,18 @@ function MovieDetailPage() {
                             </small>
                           </div>
                           <div className="d-flex align-items-center">
-                            <span 
-                              className="fw-bold me-2" 
-                              style={{ 
+                            <span
+                              className="fw-bold me-2"
+                              style={{
                                 color: `var(--bs-${getRatingColor(review.rating)})`,
                                 fontSize: "1.1rem"
                               }}
                             >
                               {review.rating}
                             </span>
-                            <i 
+                            <i
                               className="bi bi-star-fill"
-                              style={{ 
+                              style={{
                                 color: `var(--bs-${getRatingColor(review.rating)})`,
                                 fontSize: "1.1rem"
                               }}
@@ -335,11 +337,10 @@ function MovieDetailPage() {
           </Col>
         </Row>
 
-        {/* Back Button */}
         <Row className="mt-4">
           <Col className="text-center">
-            <Button 
-              variant="outline-light" 
+            <Button
+              variant="outline-light"
               onClick={() => navigate("/")}
               size="lg"
             >
@@ -353,4 +354,4 @@ function MovieDetailPage() {
   );
 }
 
-export default MovieDetailPage; 
+export default MovieDetailPage;
