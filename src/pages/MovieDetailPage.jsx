@@ -140,6 +140,9 @@ function MovieDetailPage() {
   // Find the current user's review (if any)
   const userReview = reviews.find(r => r.user_name === currentUser.username);
 
+  // Calculate average rating for this movie from backend reviews
+  const averageRating = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + (parseFloat(r.rating) || 0), 0) / reviews.length).toFixed(2) : null;
+
   return (
     <div className="min-vh-100" style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
       <Container className="py-5">
@@ -166,7 +169,7 @@ function MovieDetailPage() {
 
               <div className="d-flex justify-content-center align-items-center mb-3">
                 <span className="me-2 fw-bold text-warning" style={{ fontSize: "1.5rem" }}>
-                  {movie.averageRating}
+                  {averageRating !== null ? averageRating : "N/A"}
                 </span>
                 <i className="bi bi-star-fill text-warning" style={{ fontSize: "1.5rem" }}></i>
               </div>

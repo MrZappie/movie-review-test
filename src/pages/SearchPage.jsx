@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import { moviesData } from "../data/movies";
 import Container from "react-bootstrap/Container";
@@ -9,13 +9,39 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [movieAverages, setMovieAverages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchAndCalculate() {
+      setLoading(true);
+      try {
+        const res = await fetch("http://localhost:8010/review/list");
+        const allReviews = await res.json();
+        // For each movie, calculate average rating from reviews
+        const moviesWithAvg = moviesData.map(movie => {
+          const reviews = allReviews.filter(r => r.movie_id === movie.id);
+          const avg = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + (parseFloat(r.rating) || 0), 0) / reviews.length).toFixed(2) : null;
+          return { ...movie, averageRating: avg };
+        });
+        setMovieAverages(moviesWithAvg);
+      } catch {
+        setMovieAverages(moviesData.map(m => ({ ...m, averageRating: null })));
+      }
+      setLoading(false);
+    }
+    fetchAndCalculate();
+  }, []);
 
   // Filter movies based on search term
-  const filteredMovies = moviesData.filter(movie =>
+  const filteredMovies = movieAverages.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     movie.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
     movie.genre.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Always show up to 10 movies, even if some have no ratings
+  const top10Filtered = filteredMovies.slice(0, 10);
 
   return (
     <div className="min-vh-100" style={{ background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" }}>
@@ -69,7 +95,12 @@ function SearchPage() {
 
       {/* Movies Grid */}
       <Container className="pb-5">
-        {filteredMovies.length === 0 ? (
+        {loading ? (
+          <div className="text-center text-white py-5">
+            <i className="bi bi-search display-1 mb-3"></i>
+            <h3>Loading movies...</h3>
+          </div>
+        ) : top10Filtered.length === 0 ? (
           <div className="text-center text-white py-5">
             <i className="bi bi-search display-1 mb-3"></i>
             <h3>No movies found</h3>
@@ -77,7 +108,7 @@ function SearchPage() {
           </div>
         ) : (
           <Row className="g-4">
-            {filteredMovies.map((movie) => (
+            {top10Filtered.map((movie) => (
               <Col key={movie.id} xs={12} sm={6} lg={4} xl={3}>
                 <Cards
                   id={movie.id}
