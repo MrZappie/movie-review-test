@@ -198,10 +198,10 @@ function MovieDetailPage() {
                     <span className="text-muted">Year:</span>
                     <span className="fw-semibold">{movie.year}</span>
                   </div>
-                  <div className="d-flex justify-content-between">
+                  {/* <div className="d-flex justify-content-between">
                     <span className="text-muted">Average Rating:</span>
                     <span className="fw-semibold">{movie.averageRating}/10</span>
-                  </div>
+                  </div> */}
                 </div>
               </Card.Body>
             </Card>
