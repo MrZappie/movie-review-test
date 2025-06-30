@@ -6,6 +6,7 @@ export const moviesData = [
     genre: "Drama",
     year: 1994,
     averageRating: 9.3,
+    poster: "https://images.unsplash.com/photo-1489599731893-c5a4e6ddd5b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 1,
@@ -32,6 +33,7 @@ export const moviesData = [
     genre: "Crime",
     year: 1972,
     averageRating: 9.2,
+    poster: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 3,
@@ -50,6 +52,7 @@ export const moviesData = [
     genre: "Action",
     year: 2008,
     averageRating: 9.0,
+    poster: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 4,
@@ -76,6 +79,7 @@ export const moviesData = [
     genre: "Crime",
     year: 1994,
     averageRating: 8.9,
+    poster: "https://images.unsplash.com/photo-1489599731893-c5a4e6ddd5b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 6,
@@ -94,6 +98,7 @@ export const moviesData = [
     genre: "Drama",
     year: 1999,
     averageRating: 8.8,
+    poster: "https://images.unsplash.com/photo-1534809027769-b00ddbafd981?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 7,
@@ -112,6 +117,7 @@ export const moviesData = [
     genre: "Sci-Fi",
     year: 2010,
     averageRating: 8.8,
+    poster: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     reviews: [
       {
         id: 8,

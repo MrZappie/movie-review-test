@@ -8,6 +8,51 @@ html {
 /* Custom card styles */
 .movie-card {
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Backdrop filter support */
+@supports (backdrop-filter: blur(5px)) {
+  .movie-card .backdrop-blur {
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(5px)) {
+  .movie-card .backdrop-blur {
+    background: rgba(0,0,0,0.6);
+  }
+}
+
+/* Text shadow for better readability */
+.movie-card .text-shadow {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Star rating animation */
+.movie-card .bi-star-fill {
+  transition: transform 0.2s ease;
+}
+
+.movie-card:hover .bi-star-fill {
+  transform: scale(1.1);
+}
+
+/* Smooth text overflow */
+.movie-card .text-truncate-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Custom button styles */

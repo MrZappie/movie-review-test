@@ -60,6 +60,7 @@ function Home() {
                   averageRating={movie.averageRating}
                   genre={movie.genre}
                   year={movie.year}
+                  poster={movie.poster}
                 />
               </div>
             </Col>
