@@ -54,7 +54,7 @@ function NavBar() {
                     className={`me-3 ${location.pathname === "/add" ? "active fw-bold" : ""}`}
                   >
                     <i className="bi bi-plus-circle me-1"></i>
-                    Add Review
+                    Add a Movie
                   </Nav.Link>
                   <div className="d-flex align-items-center me-3">
                     <span className="text-light me-2">

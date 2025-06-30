@@ -29,7 +29,7 @@ function Cards({ key, id, title, description, averageRating, genre, year }) {
     >
       <Card.Body className="p-4">
         <div className="d-flex justify-content-between align-items-start mb-3">
-          <div className="flex-grow-1">
+          <div className="flex-grow-1" style={{ paddingRight: "60px" }}>
             <Card.Title className="fw-bold text-dark mb-2" style={{ fontSize: "1.25rem" }}>
               {title}
             </Card.Title>

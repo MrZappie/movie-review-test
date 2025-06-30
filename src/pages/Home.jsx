@@ -34,7 +34,7 @@ function Home() {
               <div className="position-relative">
                 {/* Rank Badge */}
                 <div 
-                  className="position-absolute top-0 start-0 z-1"
+                  className="position-absolute top-0 end-0"
                   style={{ 
                     zIndex: 1,
                     margin: "10px"
