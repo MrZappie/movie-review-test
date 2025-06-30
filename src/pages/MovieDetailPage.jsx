@@ -109,8 +109,8 @@ function MovieDetailPage() {
 
   if (!movie) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center" 
-           style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center"
+        style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
         <div className="text-center text-white">
           <i className="bi bi-exclamation-triangle display-1 mb-3"></i>
           <h3>Movie not found</h3>
@@ -124,8 +124,8 @@ function MovieDetailPage() {
 
   if (!currentUser) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center" 
-           style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
+      <div className="min-vh-100 d-flex align-items-center justify-content-center"
+        style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
         <div className="text-center text-white">
           <i className="bi bi-lock display-1 mb-3"></i>
           <h3>Please log in to view movie details</h3>
@@ -147,24 +147,38 @@ function MovieDetailPage() {
         <Row className="mb-5">
           <Col>
             <div className="text-white text-center">
+              {/* Movie Title */}
               <h1 className="display-4 fw-bold mb-3">{movie.title}</h1>
+
+              {/* Genre & Year Badges */}
               <div className="d-flex justify-content-center gap-3 mb-3">
-                <Badge bg="outline-light" className="border border-light text-white">
+                <Badge
+                  bg="outline-light"
+                  className="text-white d-inline-flex align-items-center justify-content-center px-2 py-1 fs-5"
+                >
                   {movie.genre}
                 </Badge>
-                <Badge bg="outline-light" className="border border-light text-white">
+
+                <Badge
+                  bg="outline-light"
+                  className=" text-white d-inline-flex align-items-center justify-content-center px-2 py-1 fs-5"
+                >
                   {movie.year}
                 </Badge>
-                <div className="d-flex align-items-center">
-                  <span className="me-2 fw-bold text-warning" style={{ fontSize: "1.5rem" }}>
-                    {movie.averageRating}
-                  </span>
-                  <i className="bi bi-star-fill text-warning" style={{ fontSize: "1.5rem" }}></i>
-                </div>
+              </div>
+
+              {/* Rating */}
+              <div className="d-flex justify-content-center align-items-center mb-3">
+                <span className="me-2 fw-bold text-warning" style={{ fontSize: "1.5rem" }}>
+                  {movie.averageRating}
+                </span>
+                <i className="bi bi-star-fill text-warning" style={{ fontSize: "1.5rem" }}></i>
               </div>
             </div>
           </Col>
         </Row>
+
+
 
         <Row className="g-4">
           {/* Movie Description */}
@@ -207,10 +221,10 @@ function MovieDetailPage() {
                     User Reviews ({reviews.length})
                   </h3>
                   {!userReview && (
-                    <Button 
+                    <Button
                       variant="primary"
                       onClick={() => setShowAddReview(true)}
-                      style={{ 
+                      style={{
                         background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                         border: "none"
                       }}
@@ -250,7 +264,7 @@ function MovieDetailPage() {
                                 max="10"
                                 step="0.1"
                                 value={newReview.rating}
-                                onChange={(e) => setNewReview({...newReview, rating: e.target.value})}
+                                onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
                                 required
                               />
                             </Form.Group>
@@ -281,8 +295,8 @@ function MovieDetailPage() {
                             <i className="bi bi-check-circle me-2"></i>
                             Submit Review
                           </Button>
-                          <Button 
-                            variant="outline-secondary" 
+                          <Button
+                            variant="outline-secondary"
                             onClick={() => {
                               setShowAddReview(false);
                               setNewReview({ rating: 0, description: "" });
@@ -317,7 +331,7 @@ function MovieDetailPage() {
                           >
                             {userReview.rating}
                           </span>
-                          <i 
+                          <i
                             className="bi bi-star-fill"
                             style={{ 
                               color: "#ffc107",
@@ -399,8 +413,8 @@ function MovieDetailPage() {
         {/* Back Button */}
         <Row className="mt-4">
           <Col className="text-center">
-            <Button 
-              variant="outline-light" 
+            <Button
+              variant="outline-light"
               onClick={() => navigate("/")}
               size="lg"
             >
