@@ -11,8 +11,8 @@ function Cards({ id, title, description, averageRating, genre, year, poster }) {
   };
 
   return (
-    <Card
-      className="movie-card h-100 shadow-sm border-0 position-relative overflow-hidden"
+    <Card 
+      className="movie-card h-100 shadow-sm border-0 position-relative overflow-hidden" 
       style={{
         cursor: "pointer",
         minHeight: "300px",

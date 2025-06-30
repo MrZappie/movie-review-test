@@ -34,18 +34,28 @@ function RegisterPage() {
     setLoading(true);
 
     try {
-      // Simulate registration - in a real app, this would be an API call
-      if (username && email && password) {
-        const userData = {
-          id: Date.now(),
+      const id = Date.now()
+      const response = await fetch("http://localhost:8010/user/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id:id,
+          user_email: email,
+          user_password: password,
+          user_name: username
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.message || "Failed to create account");
+      } else {
+        register({
+          id: id,
           username: username,
           email: email,
           createdAt: new Date().toISOString()
-        };
-        register(userData);
+        });
         navigate("/");
-      } else {
-        setError("Please fill in all fields");
       }
     } catch (error) {
       setError("Failed to create account");

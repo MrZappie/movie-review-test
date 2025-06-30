@@ -17,58 +17,95 @@ function MovieDetailPage() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const [movie, setMovie] = useState(null);
-  const [userReview, setUserReview] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
   const [showAddReview, setShowAddReview] = useState(false);
-  const [newReview, setNewReview] = useState({ rating: 0, comment: "" });
+  const [newReview, setNewReview] = useState({ rating: 0, description: "" });
   const [successAlert, setSuccessAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState("");
 
+  // Fetch movie details from local data
   useEffect(() => {
     const foundMovie = moviesData.find(m => m.id === parseInt(id));
     if (foundMovie) {
       setMovie(foundMovie);
-      const existingReview = foundMovie.reviews.find(
-        r => r.userId === currentUser?.id
-      );
-      setUserReview(existingReview);
     }
-  }, [id, currentUser]);
+  }, [id]);
 
-  const getRatingColor = (rating) => {
-    if (rating >= 9.0) return "success";
-    if (rating >= 8.0) return "primary";
-    if (rating >= 7.0) return "warning";
-    return "secondary";
+  // Fetch reviews for this movie from backend
+  const fetchReviews = async () => {
+    setLoadingReviews(true);
+    try {
+      const res = await fetch("http://localhost:8010/review/list");
+      const allReviews = await res.json();
+      setReviews(allReviews.filter(r => r.movie_id === Number(id)));
+    } catch (err) {
+      setErrorAlert("Failed to load reviews");
+    }
+    setLoadingReviews(false);
   };
 
-  const handleAddReview = (e) => {
+  useEffect(() => {
+    fetchReviews();
+    // eslint-disable-next-line
+  }, [id]);
+
+  // Add review
+  async function handleAddReview(e) {
     e.preventDefault();
-    if (newReview.rating > 0 && newReview.comment.trim()) {
-      const review = {
-        id: Date.now(),
-        userId: currentUser.id,
-        username: currentUser.username,
-        rating: parseFloat(newReview.rating),
-        comment: newReview.comment,
-        createdAt: new Date().toISOString()
-      };
-
-      const updatedMovie = {
-        ...movie,
-        reviews: [...movie.reviews, review]
-      };
-      setMovie(updatedMovie);
-      setUserReview(review);
+    setErrorAlert("");
+    try {
+      const review_id = Date.now();
+      await fetch("http://localhost:8010/review/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          review_id,
+          movie_id: Number(id),
+          user_name: currentUser.username,
+          rating: parseFloat(newReview.rating),
+          description: newReview.description
+        })
+      });
       setShowAddReview(false);
-      setNewReview({ rating: 0, comment: "" });
+      setNewReview({ rating: 0, description: "" });
       setSuccessAlert(true);
-
+      fetchReviews();
       setTimeout(() => setSuccessAlert(false), 3000);
+    } catch (err) {
+      setErrorAlert("Failed to add review");
     }
-  };
+  }
 
-  const handleEditReview = () => {
-    navigate(`/edit-review/${id}`);
-  };
+  // Edit review
+  async function handleEditReview(review_id, updatedFields) {
+    setErrorAlert("");
+    try {
+      await fetch(`http://localhost:8010/review/edit/${review_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedFields)
+      });
+      fetchReviews();
+      setSuccessAlert(true);
+      setTimeout(() => setSuccessAlert(false), 3000);
+    } catch (err) {
+      setErrorAlert("Failed to edit review");
+    }
+  }
+
+  // Delete review
+  async function handleDeleteReview(review_id) {
+    setErrorAlert("");
+    try {
+      await fetch(`http://localhost:8010/review/delete/${review_id}`, {
+        method: "DELETE"
+      });
+      fetchReviews();
+    } catch (err) {
+      setErrorAlert("Failed to delete review");
+    }
+  }
 
   if (!movie) {
     return (
@@ -99,6 +136,9 @@ function MovieDetailPage() {
       </div>
     );
   }
+
+  // Find the current user's review (if any)
+  const userReview = reviews.find(r => r.user_name === currentUser.username);
 
   return (
     <div className="min-vh-100" style={{ background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}>
@@ -170,7 +210,7 @@ function MovieDetailPage() {
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <h3 className="fw-bold mb-0">
                     <i className="bi bi-chat-dots me-2"></i>
-                    User Reviews ({movie.reviews.length})
+                    User Reviews ({reviews.length})
                   </h3>
                   {!userReview && (
                     <Button
@@ -190,7 +230,13 @@ function MovieDetailPage() {
                 {successAlert && (
                   <Alert variant="success" className="mb-4">
                     <i className="bi bi-check-circle-fill me-2"></i>
-                    Your review has been added successfully!
+                    Success!
+                  </Alert>
+                )}
+                {errorAlert && (
+                  <Alert variant="danger" className="mb-4">
+                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                    {errorAlert}
                   </Alert>
                 )}
 
@@ -229,8 +275,8 @@ function MovieDetailPage() {
                           <Form.Control
                             as="textarea"
                             rows={3}
-                            value={newReview.comment}
-                            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                            value={newReview.description}
+                            onChange={(e) => setNewReview({...newReview, description: e.target.value})}
                             placeholder="Share your thoughts about this movie..."
                             required
                           />
@@ -244,7 +290,7 @@ function MovieDetailPage() {
                             variant="outline-secondary"
                             onClick={() => {
                               setShowAddReview(false);
-                              setNewReview({ rating: 0, comment: "" });
+                              setNewReview({ rating: 0, description: "" });
                             }}
                           >
                             Cancel
@@ -262,14 +308,14 @@ function MovieDetailPage() {
                         <div>
                           <h6 className="fw-bold mb-1">Your Review</h6>
                           <small className="text-muted">
-                            {formatDistanceToNow(new Date(userReview.createdAt), { addSuffix: true })}
+                            {formatDistanceToNow(new Date(userReview.createdAt || Date.now()), { addSuffix: true })}
                           </small>
                         </div>
                         <div className="d-flex align-items-center">
-                          <span
-                            className="fw-bold me-2"
-                            style={{
-                              color: `var(--bs-${getRatingColor(userReview.rating)})`,
+                          <span 
+                            className="fw-bold me-2" 
+                            style={{ 
+                              color: "#ffc107",
                               fontSize: "1.2rem"
                             }}
                           >
@@ -277,61 +323,78 @@ function MovieDetailPage() {
                           </span>
                           <i
                             className="bi bi-star-fill"
-                            style={{
-                              color: `var(--bs-${getRatingColor(userReview.rating)})`,
+                            style={{ 
+                              color: "#ffc107",
                               fontSize: "1.2rem"
                             }}
                           ></i>
                         </div>
                       </div>
-                      <p className="mb-3">{userReview.comment}</p>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        onClick={handleEditReview}
-                      >
-                        <i className="bi bi-pencil me-2"></i>
-                        Edit Review
-                      </Button>
+                      <p className="mb-3">{userReview.description}</p>
+                      <div className="d-flex gap-2">
+                        <Button 
+                          variant="outline-primary" 
+                          size="sm"
+                          onClick={() => navigate(`/edit-review/${userReview.review_id}`)}
+                        >
+                          <i className="bi bi-pencil me-2"></i>
+                          Edit Review
+                        </Button>
+                        <Button 
+                          variant="outline-danger" 
+                          size="sm"
+                          onClick={() => handleDeleteReview(userReview.review_id)}
+                        >
+                          <i className="bi bi-trash me-2"></i>
+                          Delete Review
+                        </Button>
+                      </div>
                     </Card.Body>
                   </Card>
                 )}
 
-                {movie.reviews
-                  .filter(review => review.userId !== currentUser?.id)
-                  .map((review) => (
-                    <Card key={review.id} className="mb-3">
-                      <Card.Body>
-                        <div className="d-flex justify-content-between align-items-start mb-2">
-                          <div>
-                            <h6 className="fw-bold mb-1">{review.username}</h6>
-                            <small className="text-muted">
-                              {formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}
-                            </small>
+                {/* Other Reviews */}
+                {loadingReviews ? (
+                  <div className="text-center text-muted py-4">Loading reviews...</div>
+                ) : reviews.length === 0 ? (
+                  <div className="text-center text-muted py-4">No reviews yet. Be the first to review!</div>
+                ) : (
+                  reviews
+                    .filter(review => review.user_name !== currentUser.username)
+                    .map((review) => (
+                      <Card key={review.review_id} className="mb-3">
+                        <Card.Body>
+                          <div className="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                              <h6 className="fw-bold mb-1">{review.user_name}</h6>
+                              <small className="text-muted">
+                                {formatDistanceToNow(new Date(review.createdAt || Date.now()), { addSuffix: true })}
+                              </small>
+                            </div>
+                            <div className="d-flex align-items-center">
+                              <span 
+                                className="fw-bold me-2" 
+                                style={{ 
+                                  color: "#ffc107",
+                                  fontSize: "1.1rem"
+                                }}
+                              >
+                                {review.rating}
+                              </span>
+                              <i 
+                                className="bi bi-star-fill"
+                                style={{ 
+                                  color: "#ffc107",
+                                  fontSize: "1.1rem"
+                                }}
+                              ></i>
+                            </div>
                           </div>
-                          <div className="d-flex align-items-center">
-                            <span
-                              className="fw-bold me-2"
-                              style={{
-                                color: `var(--bs-${getRatingColor(review.rating)})`,
-                                fontSize: "1.1rem"
-                              }}
-                            >
-                              {review.rating}
-                            </span>
-                            <i
-                              className="bi bi-star-fill"
-                              style={{
-                                color: `var(--bs-${getRatingColor(review.rating)})`,
-                                fontSize: "1.1rem"
-                              }}
-                            ></i>
-                          </div>
-                        </div>
-                        <p className="mb-0">{review.comment}</p>
-                      </Card.Body>
-                    </Card>
-                  ))}
+                          <p className="mb-0">{review.description}</p>
+                        </Card.Body>
+                      </Card>
+                    ))
+                )}
               </Card.Body>
             </Card>
           </Col>

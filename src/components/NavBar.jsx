@@ -48,7 +48,6 @@ function NavBar() {
             <Nav className="ms-auto">
               {currentUser ? (
                 <>
-                  
                   <div className="d-flex align-items-center me-3">
                     <span className="text-light me-2">
                       <i className="bi bi-person-circle me-1"></i>

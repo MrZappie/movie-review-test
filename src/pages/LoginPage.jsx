@@ -23,18 +23,25 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      // Simulate login - in a real app, this would be an API call
-      if (email && password) {
-        const userData = {
-          id: Date.now(),
-          email: email,
-          username: email.split('@')[0],
-          createdAt: new Date().toISOString()
-        };
-        login(userData);
-        navigate("/");
+      const response = await fetch("http://localhost:8010/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_email: email,
+          user_password: password
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.message || "Failed to log in");
       } else {
-        setError("Please fill in all fields");
+        login({
+          id: data.user.user_id,
+          username: data.user.user_name,
+          email: data.user.user_email,
+          createdAt: new Date().toISOString()
+        });
+        navigate("/");
       }
     } catch (error) {
       setError("Failed to log in");
